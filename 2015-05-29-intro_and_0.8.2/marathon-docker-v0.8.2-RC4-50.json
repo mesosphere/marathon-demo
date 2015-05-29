@@ -11,7 +11,7 @@
 	    }
     },
     "args": [
-      "-c", "./bin/start --zk _zk_/_zkdir_ --master _zk_/mesos --http_port $PORT"
+      "-c", "./bin/start --zk _zk_/_zkdir_ --master _zk_/mesos --http_port $PORT --max_tasks_per_offer 50"
     ],
     "instances": 2,
     "constraints": [ ["hostname", "UNIQUE"]]

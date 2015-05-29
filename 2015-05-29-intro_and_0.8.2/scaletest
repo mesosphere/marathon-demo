@@ -12,14 +12,19 @@ APP_URL="$MARATHON/v2/apps/peters-demo-app"
 
 function json {
   echo "app instances=$1" >&2
-  cat app.json | sed -e "s/_instances_/$1/"
+  echo '{"apps": ['
+  for a in $(seq 1 $TASKCOUNT); do
+    <app.json sed -e "s/_instances_/$1/" -e "s/_id_/app$a/"
+    if [ "$a" != "$TASKCOUNT" ]; then
+      echo ","
+    fi
+  done
+  echo ']}'
 }
 
 function start {
   # echo "start $1" >&2
-  for a in $(seq 1 $TASKCOUNT); do
-    json $1 | http PUT $APP_URL$a?force=true
-  done
+  json $1| http PUT $MARATHON/v2/groups/?force=true
 }
 
 function stop {
@@ -42,7 +47,7 @@ function status {
 
 case "$1" in
   json)
-    json ${2-2}
+    json ${2-app} ${3-2}
     ;;
 
 	start)
