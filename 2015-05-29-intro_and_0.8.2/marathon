@@ -1,0 +1,48 @@
+#!/bin/bash
+
+. config.sh
+
+function json {
+  sed -e "s%_zkdir_%$MARATHON_ZK_DIR%g" -e "s%_zk_%$COMPANY_ZK_URL%g" < $MARATHON_JSON
+}
+
+function start {
+  json | http -v PUT "$MARATHON_APP_URL?force=true"
+}
+
+function stop {
+  http DELETE $MARATHON_APP_URL
+}
+
+function status {
+  http GET $MARATHON_APP_URL
+}
+
+MARATHON_JSON=${2-marathon.json}
+
+case "$1" in
+  json)
+    json
+    ;;
+	start)
+    start
+		;;
+	stop)
+    stop
+		;;
+  status)
+    status
+    ;;
+
+  url)
+    status | jq -r '.app.tasks[0].host, .app.tasks[0].ports[0]' | { 
+      read host 
+      read port
+      echo http://$host:$port
+    }
+    ;;  
+	*)
+		echo "Usage: $0 start|stop"
+		;;
+esac
+  

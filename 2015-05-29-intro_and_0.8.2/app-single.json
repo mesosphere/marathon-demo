@@ -1,0 +1,19 @@
+{
+  "cmd": "python -m SimpleHTTPServer $PORT0",
+  "cpus": 0.0001,
+  "disk": 0,
+  "instances": _instances_,
+  "mem": 32,
+  "ports": [0],
+  "healthChecks": [
+    {
+      "path": "/",
+      "protocol": "HTTP",
+      "portIndex": 0,
+      "gracePeriodSeconds": 30,
+      "intervalSeconds": 10,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3
+    }
+  ]
+}

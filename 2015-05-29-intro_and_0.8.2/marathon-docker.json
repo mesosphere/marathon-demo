@@ -1,0 +1,22 @@
+{
+    "mem": 2050.0,
+    "cpus": 2.0,
+    "maxLaunchDelaySeconds": 300,
+    "container": {
+	    "type": "DOCKER",
+	    "docker": {
+	      "image": "mesosphere/marathon:v0.8.1",
+	      "network": "BRIDGE",
+	      "portMappings": [ { "containerPort": 8080 } ]
+	    }
+    },
+    "args": [
+      "--zk", "_zk_/_zkdir_",
+      "--master", "_zk_/mesos",
+      "--http_port", "8080"
+    ],
+    "constraints": [
+      ["hostname", "UNIQUE"]
+    ]
+}
+
