@@ -14,7 +14,7 @@ function json {
   echo "app instances=$1" >&2
   echo '{"apps": ['
   for a in $(seq 1 $TASKCOUNT); do
-    <app.json sed -e "s/_instances_/$1/" -e "s/_id_/app$a/"
+    <app.json sed -e "s/_instances_/$1/" -e "s/_id_/peters-demo-app$a/"
     if [ "$a" != "$TASKCOUNT" ]; then
       echo ","
     fi

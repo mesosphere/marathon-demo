@@ -11,7 +11,7 @@
 	    }
     },
     "args": [
-      "-c", "./bin/start --zk _zk_/_zkdir_ --master _zk_/mesos --http_port $PORT"
+      "-c", "./bin/start --framework_name marathon-0.8.2-RC4 --zk _zk_/_zkdir_ --master _zk_/mesos --http_port $PORT"
     ],
     "instances": 2,
     "constraints": [ ["hostname", "UNIQUE"]]
